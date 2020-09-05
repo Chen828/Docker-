@@ -1,0 +1,5 @@
+#!/bin/bash
+#httpd
+/usr/sbin/httpd
+#·ÀÖ¹½Å±¾½áÊø
+while true;do sleep 1000;done

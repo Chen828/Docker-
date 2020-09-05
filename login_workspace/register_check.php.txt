@@ -1,0 +1,78 @@
+<?php
+
+$name=$_POST['sj_regis_id'];
+
+$password=$_POST['sj_regis_code'];
+
+$pwd_again=$_POST['sj_regis_codeconfirm'];
+
+$code=$_POST['sj_regis_check'];
+
+if($name==""|| $password=="")
+
+{
+
+        echo"<script type='text/javascript'>alert('用户名或者密码不能为空');location='register.html';</script>";
+}
+
+else
+
+{
+
+        if($password!=$pwd_again)
+
+        {
+
+                echo"<script type='text/javascript'>alert('两次输入的密码不一致,请重新输入！');location='register.html';</script>";
+
+
+}
+
+        #else if ($code!=$_SESSION['check'])
+        else if ($code!=0)
+        {
+
+                echo"<script type='text/javascript'>alert('验证码错误！');location='register.html';</script>";
+
+        }
+
+        else
+
+        {
+
+                // 创建连接
+                #MYSQL_DATABASE  加进docker
+                #数据库存储port，pass，及个人信息，姓名，工号，学院，学校，人员类型
+                        $conn = mysqli_connect(getenv("MYSQL_ADDR"),getenv("MYSQL_USER"),getenv("MYSQL_PASS"),getenv("MYSQL_DATABASE"));
+                        // Check connection
+                        if (!$conn)
+                        {
+                                die("连接失败: " . mysqli_connect_error());
+                        }
+                        mysqli_query("SET NAMES utf8");
+                        $sql="insert into port_pass values('105','$password','$name','teacher')";
+                        $result = mysqli_query($conn, $sql);
+
+                if(!$result)
+
+                {
+
+                        echo"<script type='text/javascript'>alert('注册不成功！');location='register.html';</script>";
+
+
+        }
+
+                else
+
+        {
+
+                        echo"<script type='text/javascript'>alert('注册成功！');location='index.html';</script>";
+
+                }
+
+                        mysqli_close($conn);
+        }
+
+}
+
+?>

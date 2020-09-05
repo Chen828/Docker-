@@ -1,0 +1,117 @@
+<?php
+        $opt = $_GET['opt'];
+        $containerid = $_GET['containerid'];
+        define("host","http://10.20.0.12:5555/");
+
+        function postDockerAPI($url,$post_param=false,$isjson=false,$d)
+        {
+
+                $ch = curl_init();
+
+                if($isjson)
+                        $header[] = "Content-type:application/json";   //狠狠重要
+                else
+                        $header[] = "Content-type:text/plain;Charset=Utf-8";
+
+                curl_setopt($ch, CURLOPT_HEADER, 1);
+                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 5000);
+                if ($d == true)
+                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+                else
+                        curl_setopt($ch, CURLOPT_POST, 1);
+
+                if($post_param)
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_param);
+
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+                curl_setopt($ch, CURLOPT_URL, $url);
+
+                $res = curl_exec($ch);
+                #echo $res;
+                #if($res == "")
+                        echo"<script type='text/javascript'>alert('Successful ：' );location='containers.php';</script>";
+                #else
+                #        echo"<script type='text/javascript'>alert('False ：' );location='containers.php';</script>";
+        }
+
+
+
+        function startContainer($containerid)
+        {
+                $params='{"HostConfig":{ "Binds":null,"PortBindings":{},"Privileged":false}}';
+                postDockerAPI(host."containers/".$containerid."/start",$params,true,false);
+
+        }
+        function restartContainer($containerid)
+        {
+                $params='{"HostConfig":{ "Binds":null,"PortBindings":{},"Privileged":false}}';
+                postDockerAPI(host."containers/".$containerid."/restart",$params,true,false);
+
+        }
+        function stopContainer($containerid)
+        {
+                $params='{"HostConfig":{ "Binds":null,"PortBindings":{},"Privileged":false}}';
+                postDockerAPI(host."containers/".$containerid."/stop",$params,true,false);
+
+        }
+        function deleteContainer($containerid)
+        {
+                $params='{"HostConfig":{ "Binds":null,"PortBindings":{},"Privileged":false}}';
+                postDockerAPI(host."containers/".$containerid,$params,true,true);
+
+        }
+        //清空已停止容器
+        function prunestopContainer()
+        {
+                $params='{"HostConfig":{ "Binds":null,"PortBindings":{},"Privileged":false}}';
+                postDockerAPI(host."containers"."/prune",$params,true);
+
+        }
+        
+        //应位于opt_images,以images中镜像为基础创建容器
+        function createContainer()
+        {
+                $params="{"
+                        .'"Image":"httpd",'
+                         .' "Cmd":['
+                         .' "usr/sbin/sshd -D" '
+                         .']'
+                         ."}";
+                 postDockerAPI(host."containers/create",$params,true,false);
+        }
+
+
+        function run($opt,$containerid)
+        {
+                switch ($opt)
+                {
+                case "start":
+                startContainer($containerid) ;
+                break;
+                case "restart":
+                restartContainer($containerid) ;
+                break;
+                case "stop":
+                stopContainer($containerid) ;
+                break;
+                case "remove":
+                deleteContainer($containerid) ;
+                break;
+                case "removeall":
+                prunestopContainer() ;
+                break;
+                case "create":
+                createContainer() ;
+                break;
+                }
+
+        }
+
+        run($opt,$containerid);
+
+?>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta charset="UTF-8">
+                <title>”√ªß◊¢≤·</title>
+                <link rel="stylesheet" type="text/css" href="./registerstyle.css"/>
+                <script type="text/javascript">
+                        function InputCheck(){
+                                if (LoginForm.sj_regis_id.value == "")
+                                {
+                                  alert("«Î ‰»Î”√ªß√˚!");
+                                  LoginForm.sj_regis_id.focus();
+                                  return (false);
+                                }
+                                else if (LoginForm.sj_regis_code.value == "")
+                                {
+                                  alert("«Î ‰»Î√‹¬Î!");
+                                  LoginForm.sj_regis_code.focus();
+                                  return (false);
+                                }
+                                else if (LoginForm.sj_regis_name.value == "")
+                                {
+                                  alert("«Î ‰»ÎÍ«≥∆!");
+                                  LoginForm.sj_regis_name.focus();
+                                  return (false);
+                                }
+                                else if (LoginForm.sj_regis_code.value != LoginForm.sj_regis_codeconfirm.value)
+                                {
+                                  alert("¡Ω¥Œ√‹¬Î≤ª∆•≈‰!");
+                                  LoginForm.sj_regis_codeconfirm.focus();
+                                  return (false);
+                                }
+                                else return true;
+                        }
+                </script>
+        </head>
+        <body>
+                <!-- ‰»ÎøÚ-->
+                        <div id="sj_land">
+                                <div class="bigregister">
+                                        <img src="./title_logo_g.png" class="imgtop" style="height: 200px" />
+                                        <h3>ª∂”≠◊¢≤·</h3>
+                                <fieldset class="registero">
+                                <!--<legend>ª∂”≠”√ªß◊¢≤·</legend>-->
+                                <form  action="register_check.php"   method="post" name="LoginForm">
+                                        <div class="one">
+                                        ’À&nbsp;∫≈: &nbsp;<input type="text" name="sj_regis_id" placeholder="«Î ‰»Î’À∫≈" />
+                                        </div>
+                                        <div class="two">
+                                        √‹&nbsp;¬Î: &nbsp;<input type="password" name="sj_regis_code" placeholder="«Î ‰»Î√‹¬Î" />
+                                        </div>
+                                        <div class="three">
+                                        »∑»œ√‹¬Î: <input type="password" name="sj_regis_codeconfirm" placeholder="«Î ‰»Î√‹¬Î" />
+                                        </div>
+                                        <div class="four">
+                                        —È&nbsp;÷§&nbsp;¬Î: &nbsp;<input type="text" name="sj_regis_check" placeholder="«Î ‰»Î—È÷§¬Î" />
+                                        <img src="showimg.php"></img>
+                                        </div>
+                                        <div type="button">
+                                        <input name="cont" value="Ã·Ωª" type="submit" class="cont" />
+                                        </div>
+                                        <input type="reset" value="÷ÿ÷√" class="reset"/>
+                                </fieldset>
+                                </form>
+                                </div>
+
+                        </div>
+
+        </body>
+</html>

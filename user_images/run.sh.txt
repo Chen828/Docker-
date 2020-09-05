@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#ssh
+/usr/sbin/sshd -D &
+
+#httpd
+httpd
+#∑¿÷πΩ≈±æΩ· ¯
+while true;do sleep 1000;done
+
+#mysql
+#mysqld_safe
+
+
+#sshd
+#/usr/sbin/sshd -D
+#set -e
+#/usr/sbin/sshd &
+#/usr/sbin/httpd -D FOREGROUND
